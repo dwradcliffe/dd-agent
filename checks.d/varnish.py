@@ -113,7 +113,12 @@ class Varnish(AgentCheck):
             use_xml = False
             arg = "-1"
 
-        output, error = subprocess.Popen([instance.get("varnishstat"), arg],
+        # Use varnish name?
+        name = None
+        if instance.get('name', None) is not None:
+            name = "-n" + instance.get('name')
+
+        output, error = subprocess.Popen([instance.get("varnishstat"), arg, name],
                                          stdout=subprocess.PIPE,
                                          stderr=subprocess.PIPE).communicate()
         if error and len(error) > 0:

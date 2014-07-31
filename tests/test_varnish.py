@@ -1879,6 +1879,14 @@ instances:
         except:
             pass
 
+    def testConfigWithName(self):
+        v, instances = get_check('varnish', self.config)
+        config = {
+            'varnishstat': '/usr/bin/varnishstat',
+            'name': 'site2'
+        }
+        
+
     def testOldConfig(self):
         v, instances = get_check('varnish', self.config)
         config = {
